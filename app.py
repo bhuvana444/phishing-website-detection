@@ -79,7 +79,7 @@ def home():
                 else "✅ URL appears legitimate based on the trained demo model."
             )
             features = feature_labels(values)
-            risk = "High" if probability >= 70 else "Medium" if probability >= 40 else "Low"
+            risk = "High" if prediction == 1 and probability >= 70 else "Medium" if prediction == 1 and probability >= 40 else "Low"
 
         reasons = []
 
