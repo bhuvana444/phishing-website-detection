@@ -77,6 +77,20 @@ def home():
                 else "✅ URL appears legitimate based on the trained demo model."
             )
             features = feature_labels(values)
+            risk = "High" if probability >= 70 else "Medium" if probability >= 40 else "Low"
+
+        reasons = []
+
+        if values[1] == 0:
+            reasons.append("No HTTPS detected")
+        if values[2] == 1:
+            reasons.append("IP address used in URL")
+        if values[3] >= 2:
+            reasons.append("Many special characters")
+        if values[5] >= 2:
+            reasons.append("Multiple subdomains")
+        if values[6] >= 1:
+            reasons.append("Suspicious words found")
 
     return render_template(
         "index.html",
@@ -84,6 +98,8 @@ def home():
         probability=probability,
         features=features,
         url=url
+        risk=risk,
+reasons=reasons
     )
 
 if __name__ == "__main__":
