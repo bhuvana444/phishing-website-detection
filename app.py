@@ -61,6 +61,8 @@ def home():
     probability = None
     features = None
     url = ""
+    risk = None
+    reasons = []
 
     if request.method == "POST":
         url = request.form.get("url", "").strip()
