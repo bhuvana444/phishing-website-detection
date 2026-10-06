@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phishing Website Detector</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <div class="badge">AI / ML CYBERSECURITY MINI PROJECT</div>
+    <h1>Phishing Website Detector</h1>
+    <p>Enter a website URL and analyze its characteristics.</p>
+  </div>
+
+  <div class="card">
+    <form method="POST">
+      <label for="url">Website URL</label>
+      <div class="input-row">
+        <input id="url" name="url" type="text"
+               placeholder="https://example.com"
+               value="{{ url }}" required>
+        <button type="submit">DETECT</button>
+      </div>
+    </form>
+
+    {% if result %}
+      <div class="result {% if result[0] == 'Phishing' %}danger{% elif result[0] == 'Legitimate' %}safe{% else %}neutral{% endif %}">
+        <div class="result-title">{{ result[0] }}</div>
+        <div>{{ result[1] }}</div>
+        {% if probability %}
+          <div class="probability">Model confidence: {{ "%.1f"|format(probability) }}%</div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+
+  {% if features %}
+  <div class="card">
+    <h2>Extracted URL Features</h2>
+    <div class="features">
+      {% for name, value in features %}
+      <div class="feature">
+        <span>{{ name }}</span>
+        <strong>{{ value }}</strong>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="card flow">
+    <h2>Detection Flow</h2>
+    <div class="flow-row">
+      <span>URL</span><b>→</b><span>Feature Extraction</span><b>→</b>
+      <span>ML Model</span><b>→</b><span>Prediction</span>
+    </div>
+  </div>
+
+  <p class="note">Demo only: a prediction is not a guarantee that a website is safe.</p>
+</div>
+</body>
+</html>
