@@ -49,6 +49,21 @@
     </div>
   </div>
   {% endif %}
+  {% if risk %}
+<div class="card">
+    <h2>Risk Assessment</h2>
+    <p><strong>Risk Level:</strong> {{ risk }}</p>
+
+    {% if reasons %}
+    <h3>Why?</h3>
+    <ul>
+        {% for reason in reasons %}
+        <li>{{ reason }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+{% endif %}
 
   <div class="card flow">
     <h2>Detection Flow</h2>
